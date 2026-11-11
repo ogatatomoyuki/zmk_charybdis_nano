@@ -128,6 +128,10 @@
         // bootloader / sys_reset を切り替える（指の形がほぼ同じで覚えやすい）。
         //
         //   親指 内側         → &bootloader（焼き用・リセットボタン2回押し相当）
+        // ⚠️ 親指の物理配置（2026-11-12 緒方さん確認。キーマップの並び順と内外が逆）:
+        //     左手 [NAV][SPC][SYM] │ 中央 │ [BSPC][ENT] 右手
+        //           外側 →→→ 内側          内側 ←←← 外側
+        //   ＝ **内側(中央寄り)は 左=SYM / 右=BSPC**。NAV は左の一番外側。
         //   親指 内側から2番目 → &sys_reset （再起動・リセットボタン1回押し相当）
         //
         // ★各コンボは「同じ半身のキーだけ」で構成している。USBで片側だけ繋いで焼く
@@ -137,15 +141,15 @@
         //   「内側から何番目か」で対称を取っている。
         // 3キーなので timeout は 2キーコンボより緩める。
 
-        // bootloader — 左半身: Q(13) + B(41) + NAV(48=親指内側)
+        // bootloader — 左半身: Q(13) + B(41) + SYM(50=親指内側＝中央寄り)
         combo_boot_left {
             timeout-ms = <100>;
             require-prior-idle-ms = <250>;
-            key-positions = <13 41 48>;
+            key-positions = <13 41 50>;
             bindings = <&bootloader>;
         };
 
-        // bootloader — 右半身: P(22) + N(42) + BSPC(51=親指内側)
+        // bootloader — 右半身: P(22) + N(42) + BSPC(51=親指内側＝中央寄り)
         combo_boot_right {
             timeout-ms = <100>;
             require-prior-idle-ms = <250>;
