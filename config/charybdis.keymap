@@ -122,32 +122,51 @@
             layers = <BASE>;
         };
 
-        // --- ブートローダー起動（物理リセットボタンの代替） ---
-        // 押しづらい基板上のリセットボタン2回押しを、3キー同時押しで代替する。
-        // 左右シンメトリ配置：上段の最外列 ＋ 下段の最内列 ＋ 親指内側。
-        // 対角＋親指の3点なので通常打鍵では成立しない。
+        // --- ブートローダー / リセット（物理リセットボタンの代替） ---
+        // 押しづらい基板上のリセットボタンを3キー同時押しで代替する。
+        // 「上段の最外列 ＋ 下段の最内列」の2キーは共通で、**親指をずらすだけ**で
+        // bootloader / sys_reset を切り替える（指の形がほぼ同じで覚えやすい）。
+        //
+        //   親指 内側         → &bootloader（焼き用・リセットボタン2回押し相当）
+        //   親指 内側から2番目 → &sys_reset （再起動・リセットボタン1回押し相当）
         //
         // ★各コンボは「同じ半身のキーだけ」で構成している。USBで片側だけ繋いで焼く
-        //   運用でも、その半身単独でブートローダーに入れる（相手側は不要）。
+        //   運用でも、その半身単独で起動できる（相手側は不要）。
         // ★layers を指定せず全レイヤーで有効（焼きたい時にレイヤーを意識しないため）。
+        // ★右の親指は2キー(51 BSPC/52 ENT)しかなく「真ん中」が無いので、左右は
+        //   「内側から何番目か」で対称を取っている。
         // 3キーなので timeout は 2キーコンボより緩める。
 
-        // 左半身: Q(13) + B(41) + SPC(49=親指真ん中)
+        // bootloader — 左半身: Q(13) + B(41) + NAV(48=親指内側)
         combo_boot_left {
             timeout-ms = <100>;
             require-prior-idle-ms = <250>;
-            key-positions = <13 41 49>;
+            key-positions = <13 41 48>;
             bindings = <&bootloader>;
         };
 
-        // 右半身: P(22) + N(42) + ENT(52=内側から2番目)
-        // ※右の親指は2キー(51 BSPC/52 ENT)しかなく「真ん中」が存在しないため、
-        //   左の SPC(49) と同じ「内側から2番目」で揃えた。
+        // bootloader — 右半身: P(22) + N(42) + BSPC(51=親指内側)
         combo_boot_right {
             timeout-ms = <100>;
             require-prior-idle-ms = <250>;
-            key-positions = <22 42 52>;
+            key-positions = <22 42 51>;
             bindings = <&bootloader>;
+        };
+
+        // sys_reset — 左半身: Q(13) + B(41) + SPC(49=内側から2番目)
+        combo_reset_left {
+            timeout-ms = <100>;
+            require-prior-idle-ms = <250>;
+            key-positions = <13 41 49>;
+            bindings = <&sys_reset>;
+        };
+
+        // sys_reset — 右半身: P(22) + N(42) + ENT(52=内側から2番目)
+        combo_reset_right {
+            timeout-ms = <100>;
+            require-prior-idle-ms = <250>;
+            key-positions = <22 42 52>;
+            bindings = <&sys_reset>;
         };
 
     };
