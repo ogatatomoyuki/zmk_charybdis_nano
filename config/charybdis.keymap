@@ -132,19 +132,21 @@
         // ★layers を指定せず全レイヤーで有効（焼きたい時にレイヤーを意識しないため）。
         // 3キーなので timeout は 2キーコンボより緩める。
 
-        // 左半身: Q(13) + B(41) + NAV(48)
+        // 左半身: Q(13) + B(41) + SPC(49=親指真ん中)
         combo_boot_left {
             timeout-ms = <100>;
             require-prior-idle-ms = <250>;
-            key-positions = <13 41 48>;
+            key-positions = <13 41 49>;
             bindings = <&bootloader>;
         };
 
-        // 右半身: P(22) + N(42) + BSPC(51)
+        // 右半身: P(22) + N(42) + ENT(52=内側から2番目)
+        // ※右の親指は2キー(51 BSPC/52 ENT)しかなく「真ん中」が存在しないため、
+        //   左の SPC(49) と同じ「内側から2番目」で揃えた。
         combo_boot_right {
             timeout-ms = <100>;
             require-prior-idle-ms = <250>;
-            key-positions = <22 42 51>;
+            key-positions = <22 42 52>;
             bindings = <&bootloader>;
         };
 
