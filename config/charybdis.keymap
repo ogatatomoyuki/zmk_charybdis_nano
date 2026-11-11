@@ -158,16 +158,21 @@
 
         // NAV Layer（左内側親指）
         //   ---  ---  ---  ---  ---  --- │  ---  ---  ---  ---  ---  ---
-        //   ---  ESC  SWAP STAB CAPS --- │  HOME PGDN PGUP END  LCLK ---
+        //   ---  ESC  SWAP STAB CAPS GUI │  HOME PGDN PGUP END  LCLK ---
         //   --- skCTL skSFT skALT skGUI TAB│ LEFT DOWN UP  RGHT RCLK ---
         //   ---  UNDO CUT  COPY PST REDO │  SCRDN SCRUP ZM+  ZM-  MCLK ---
         //             ___  ___  ___      │      ___  ___
         //                  ---           │       --- ---
+        //
+        // ★ NAV中はトラックボール＝2軸スクロール（charybdis_right.overlay の nav_scroller）。
+        //   上段5列目の &kp LGUI は「押しっぱなしできる⌘」。NAV＋⌘＋ボールで ⌘+スクロール
+        //   ＝埋め込みGoogleマップ等の“ピンチ相当”縮尺ズームになる（sk LGUI は1キーで消費
+        //   されるためボール操作には乗らない。そのため素の &kp を併設している）。
         NAV_layer {
             display-name = "Nav";
             bindings = <
 &none  &none      &none      &none      &none      &none          &none          &none          &none          &none          &none      &none
-&none  &kp ESC    &mc_swap   &mc_tab    &kp CAPS   &none          &kp HOME       &kp PG_DN      &kp PG_UP      &kp END        &mkp LCLK  &none
+&none  &kp ESC    &mc_swap   &mc_tab    &kp CAPS   &kp LGUI       &kp HOME       &kp PG_DN      &kp PG_UP      &kp END        &mkp LCLK  &none
 &none  &sk LCTRL  &sk LSHFT  &sk LALT   &sk LGUI   &kp TAB        &kp LEFT       &kp DOWN       &kp UP         &kp RIGHT      &mkp RCLK  &none
 &none  &mc_undo   &mc_cut    &mc_copy   &mc_paste  &mc_redo       &msc SCRL_DOWN &msc SCRL_UP   &mc_zmin       &mc_zmout      &mkp MCLK  &none
                              &trans     &trans     &trans         &trans         &trans

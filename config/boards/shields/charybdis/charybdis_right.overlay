@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+#include <input/processors.dtsi>
 #include "charybdis.dtsi"
 #include "charybdis_3610.dtsi"
 
@@ -26,5 +27,13 @@
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
+
+        // NAV レイヤー(1)を押している間はボール＝2軸スクロール（縦横とも効く）。
+        // NAV層に併設した &kp LGUI を一緒に押せば ⌘+スクロール＝埋め込み地図等の縮尺ズーム。
+        // 縦だけにしたい場合はここを <&zip_xy_to_scroll_mapper &zip_x_scaler 0 1> 等に変える。
+        nav_scroller {
+            layers = <1>;
+            input-processors = <&zip_xy_to_scroll_mapper>;
+        };
     };
 };
