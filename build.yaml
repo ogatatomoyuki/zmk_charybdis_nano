@@ -12,10 +12,17 @@
 #     shield: reviung41
 #
 ---
+# ⚠️ ボード表記は ZMK の Zephyr 4.1 移行（2025-12-09）で変更された。
+# 旧 `nice_nano` は無効になり「ZMK variant」指定が必須
+#   （エラー: The selected board is not set up for ZMK and there is a ZMK variant available）。
+# 本機のコントローラは **nice!nano v1**（NOTES.md 参照）なので `nice_nano@1//zmk`。
+#   - v1: nice_nano@1//zmk
+#   - v2: nice_nano//zmk
+# 参考: https://zmk.dev/blog/2025/12/09/zephyr-4-1#zmk-board-variant
 include:
-  - board: nice_nano
+  - board: nice_nano@1//zmk
     shield: charybdis_left
-  - board: nice_nano
+  - board: nice_nano@1//zmk
     shield: charybdis_right
-  - board: nice_nano
+  - board: nice_nano@1//zmk
     shield: settings_reset

@@ -122,6 +122,32 @@
             layers = <BASE>;
         };
 
+        // --- ブートローダー起動（物理リセットボタンの代替） ---
+        // 押しづらい基板上のリセットボタン2回押しを、3キー同時押しで代替する。
+        // 左右シンメトリ配置：上段の最外列 ＋ 下段の最内列 ＋ 親指内側。
+        // 対角＋親指の3点なので通常打鍵では成立しない。
+        //
+        // ★各コンボは「同じ半身のキーだけ」で構成している。USBで片側だけ繋いで焼く
+        //   運用でも、その半身単独でブートローダーに入れる（相手側は不要）。
+        // ★layers を指定せず全レイヤーで有効（焼きたい時にレイヤーを意識しないため）。
+        // 3キーなので timeout は 2キーコンボより緩める。
+
+        // 左半身: Q(13) + B(41) + NAV(48)
+        combo_boot_left {
+            timeout-ms = <100>;
+            require-prior-idle-ms = <250>;
+            key-positions = <13 41 48>;
+            bindings = <&bootloader>;
+        };
+
+        // 右半身: P(22) + N(42) + BSPC(51)
+        combo_boot_right {
+            timeout-ms = <100>;
+            require-prior-idle-ms = <250>;
+            key-positions = <22 42 51>;
+            bindings = <&bootloader>;
+        };
+
     };
 
     // --- Conditional Layer (NAV + SYM = FUN) ---
